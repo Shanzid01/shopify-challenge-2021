@@ -8,13 +8,19 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import HelloWorld from "./components/HelloWorld.vue";
+import Halfmoon from "@/helpers/Halfmoon.ts";
+require("halfmoon/css/halfmoon-variables.min.css");
 
 @Component({
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  mounted() {
+    Halfmoon.init();
+  }
+}
 </script>
 
 <style>
