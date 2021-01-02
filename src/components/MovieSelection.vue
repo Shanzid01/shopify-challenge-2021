@@ -12,9 +12,7 @@
         @movieSelected="movieSelected"
       />
     </div>
-    <div v-else>
-      {{ movie.imdbID }}
-    </div>
+    <Nominee v-else :movieID="movie.imdbID" />
   </div>
 </template>
 
@@ -23,8 +21,9 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import SearchModal from "./SearchModal.vue";
 import { gsap } from "gsap";
 import NomineeModule from "@/store/modules/NomineeModule";
+import Nominee from "@/components/Nominee.vue";
 
-@Component({ components: { SearchModal } })
+@Component({ components: { SearchModal, Nominee } })
 export default class MovieSelection extends Vue {
   @Prop({ required: true }) readonly id!: string;
   isSearchOpen = false;
@@ -51,7 +50,6 @@ export default class MovieSelection extends Vue {
 .movie-selection-container {
   width: 200px;
   height: 260px;
-  display: inline-block;
   margin: 0px 15px 15px 0px;
   border-radius: 10px;
   position: relative;

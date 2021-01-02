@@ -29,6 +29,11 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
+.movie-selections-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
