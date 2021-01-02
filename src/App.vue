@@ -1,21 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div id="app" class="content">
+    <div class="content">
+      <h2 class="content-title">
+        👑
+        <span class="font-weight-bolder font-size-22">Movie nominations</span>
+      </h2>
+      <div>
+        <div class="movie-selections-container">
+          <MovieSelection v-for="n in 5" :key="n" :id="`movie-${n}`" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
 import Halfmoon from "@/helpers/Halfmoon.ts";
+import MovieSelection from "@/components/MovieSelection.vue";
 require("halfmoon/css/halfmoon-variables.min.css");
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
+@Component({ components: { MovieSelection } })
 export default class App extends Vue {
   mounted() {
     Halfmoon.init();
@@ -23,13 +28,8 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 </style>

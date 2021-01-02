@@ -1,0 +1,215 @@
+<template>
+  <div :id="id" class="search-window-container">
+    <div class="action-buttons">
+      <button class="btn" @click="closeModal" type="button">
+        <i class="fa fa-times" />
+      </button>
+    </div>
+    <div class="main-content">
+      <form
+        class="search-input-container form-inline"
+        v-on:submit.prevent="getMoviesByTitle"
+      >
+        <input
+          :id="`text-${id}`"
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Search a movie"
+          v-model="searchQuery"
+          :disabled="this.loading"
+        />
+        <button
+          class="btn btn-primary btn-lg"
+          type="submit"
+          :disabled="this.loading"
+        >
+          <i class="fa fa-search" />
+        </button>
+      </form>
+      <div class="search-results">
+        <SearchItem
+          v-for="movie in searchResults"
+          :key="movie.imdbID"
+          :movieName="movie.Title"
+          :moviePoster="movie.Poster"
+          :movieYear="movie.Year"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import gsap from "gsap";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import omdbService from "@/services/omdbService.ts";
+import Halfmoon from "@/helpers/Halfmoon";
+import SearchModule from "@/store/modules/SearchModule.ts";
+import SearchItem from "@/components/SearchItem.vue";
+
+@Component({ components: { SearchItem } })
+export default class SearchModal extends Vue {
+  @Prop({ required: true }) readonly id!: string;
+  parentNode: any = null;
+  animDuration = 0.17;
+
+  searchQuery = "";
+  loading = false;
+
+  get searchResults() {
+    return SearchModule.searchHistory.get(this.searchQuery);
+  }
+
+  mounted() {
+    this.registerEscape();
+
+    const html = document.querySelector("html");
+    if (html != null) {
+      html.style.overflow = "hidden";
+    }
+
+    this.parentNode = document.getElementById(this.id)?.parentElement;
+
+    const parentNodeDimension = this.parentNode.getBoundingClientRect();
+    gsap
+      .fromTo(
+        `#${this.id}`,
+        {
+          opacity: 0,
+          width: parentNodeDimension?.width,
+          height: parentNodeDimension?.height,
+          x: parentNodeDimension?.x,
+          y: parentNodeDimension?.y,
+          backgroundColor: "#f0f0f0",
+          scale: 0,
+        },
+        {
+          opacity: 1,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          x: 0,
+          y: 0,
+          duration: this.animDuration,
+          backgroundColor: "#fff",
+          scale: 1,
+        }
+      )
+      .then(() => {
+        document.getElementById(`text-${this.id}`)?.focus();
+      });
+  }
+
+  closeModal() {
+    const html = document.querySelector("html");
+    if (html != null) {
+      html.style.overflow = "auto";
+    }
+
+    const parentNodeDimension = this.parentNode.getBoundingClientRect();
+    gsap.to(`#${this.id}`, this.animDuration, {
+      opacity: 0,
+      width: parentNodeDimension?.width,
+      height: parentNodeDimension?.height,
+      x: parentNodeDimension?.x,
+      y: parentNodeDimension?.y,
+      backgroundColor: "#f0f0f0",
+      scale: 0.2,
+    });
+    setTimeout(() => {
+      this.$emit("close");
+    }, this.animDuration * 1000);
+  }
+
+  registerEscape() {
+    document.onkeydown = (evt) => {
+      evt = evt || window.event;
+      let isEscape = false;
+      if ("key" in evt) {
+        isEscape = evt.key === "Escape" || evt.key === "Esc";
+      } else {
+        isEscape = (evt as any).keyCode === 27;
+      }
+      if (isEscape) {
+        this.closeModal();
+      }
+    };
+  }
+
+  async getMoviesByTitle() {
+    this.loading = true;
+    await SearchModule.getMovieByTitle(this.searchQuery);
+    this.loading = false;
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.search-window-container {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 100;
+  overflow: auto;
+  cursor: default;
+
+  .action-buttons {
+    width: 100%;
+    padding: 10px 20px 20px 20px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: flex-end;
+
+    button {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .main-content {
+    padding: 10px 20px 0px 20px;
+    box-sizing: border-box;
+
+    .search-input-container {
+      min-width: 55vw;
+      max-width: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0px auto;
+
+      input[type="text"] {
+        margin-right: 0px !important;
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+        max-width: 400px;
+      }
+
+      button {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+        width: 30px;
+        display: flex;
+      }
+    }
+  }
+
+  .search-results {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+button {
+  justify-content: center;
+  align-items: center;
+}
+</style>
