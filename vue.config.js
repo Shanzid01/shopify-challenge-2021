@@ -6,5 +6,6 @@ module.exports = {
     devServer: {
         port: '8080',
         host: 'localhost'
-    }
+    },
+    publicPath: '/shopify-challenge-2021/'
 };
