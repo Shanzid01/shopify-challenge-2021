@@ -113,12 +113,12 @@ export default class Nominee extends Vue {
         rgba(0, 0, 1, 0.8) 50%,
         rgba(255, 255, 255, 0) 100%
       );
-      z-index: 99;
+      z-index: 9;
     }
 
     span {
       position: relative;
-      z-index: 100;
+      z-index: 10;
     }
   }
 }
