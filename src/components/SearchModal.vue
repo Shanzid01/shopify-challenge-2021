@@ -33,6 +33,8 @@
           :movieName="movie.Title"
           :moviePoster="movie.Poster"
           :movieYear="movie.Year"
+          :movieID="movie.imdbID"
+          @selectNominee="selectNominee"
         />
       </div>
     </div>
@@ -46,6 +48,7 @@ import omdbService from "@/services/omdbService.ts";
 import Halfmoon from "@/helpers/Halfmoon";
 import SearchModule from "@/store/modules/SearchModule.ts";
 import SearchItem from "@/components/SearchItem.vue";
+import NomineeModule from "@/store/modules/NomineeModule";
 
 @Component({ components: { SearchItem } })
 export default class SearchModal extends Vue {
@@ -139,6 +142,19 @@ export default class SearchModal extends Vue {
     this.loading = true;
     await SearchModule.getMovieByTitle(this.searchQuery);
     this.loading = false;
+  }
+
+  selectNominee(movieID: string) {
+    const movie = this.searchResults.find(
+      (movie: any) => movie.imdbID === movieID
+    );
+    const newNomineeList = [...NomineeModule.nominees];
+    if (!newNomineeList.includes((movie: any) => movie.imdbID === movieID)) {
+      newNomineeList.push(movie);
+    }
+    NomineeModule.updateNomineeList(newNomineeList);
+    this.$emit("movieSelected", movieID);
+    this.closeModal();
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="movie-selection-container">
-    <div :id="id" class="empty-selection" @click="openSearch">
+    <div v-if="!movie" :id="id" class="empty-selection" @click="openSearch">
       <span class="text-muted font-weight-bold font-size-12">
         <i class="fa fa-plus text-muted" />
         Choose nominee
@@ -9,7 +9,11 @@
         v-if="isSearchOpen"
         @close="closeSearch"
         :id="`search-${this.id}`"
+        @movieSelected="movieSelected"
       />
+    </div>
+    <div v-else>
+      {{ movie.imdbID }}
     </div>
   </div>
 </template>
@@ -18,11 +22,14 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import SearchModal from "./SearchModal.vue";
 import { gsap } from "gsap";
+import NomineeModule from "@/store/modules/NomineeModule";
 
 @Component({ components: { SearchModal } })
 export default class MovieSelection extends Vue {
   @Prop({ required: true }) readonly id!: string;
   isSearchOpen = false;
+
+  movie: any = null;
 
   openSearch() {
     this.isSearchOpen = true;
@@ -30,6 +37,12 @@ export default class MovieSelection extends Vue {
 
   closeSearch() {
     this.isSearchOpen = false;
+  }
+
+  movieSelected(movieID: string) {
+    this.movie = NomineeModule.nominees.find(
+      (movie: any) => movie.imdbID === movieID
+    );
   }
 }
 </script>
