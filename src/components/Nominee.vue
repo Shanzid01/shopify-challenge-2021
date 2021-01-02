@@ -6,6 +6,13 @@
       <span class="font-weight-semi-bold font-size-18">{{ nomineeTitle }}</span>
       <span>&nbsp;({{ nomineeYear }})</span>
     </div>
+    <button
+      @click="deleteNominee"
+      class="btn delete-button btn-sm"
+      type="button"
+    >
+      <i class="fa fa-times" />
+    </button>
   </div>
 </template>
 
@@ -41,6 +48,15 @@ export default class Nominee extends Vue {
   get nomineeYear() {
     return this.nominee["Year"];
   }
+
+  deleteNominee() {
+    const newNominees = NomineeModule.nominees.filter(
+      (nominee) => nominee.imdbID !== this.movieID
+    );
+    NomineeModule.updateNomineeList(newNominees);
+
+    this.$emit("deleteNominee");
+  }
 }
 </script>
 
@@ -52,6 +68,18 @@ export default class Nominee extends Vue {
   justify-content: center;
   align-items: center;
   position: relative;
+
+  .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .poster {
     position: absolute;

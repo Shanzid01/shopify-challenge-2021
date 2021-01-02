@@ -1,6 +1,11 @@
 <template>
   <div class="movie-selection-container">
-    <div v-if="!movie" :id="id" class="empty-selection" @click="openSearch">
+    <Nominee
+      v-if="movie"
+      :movieID="movie.imdbID"
+      @deleteNominee="deleteNominee"
+    />
+    <div v-else :id="id" class="empty-selection" @click="openSearch">
       <span class="text-muted font-weight-bold font-size-12">
         <i class="fa fa-plus text-muted" />
         Choose nominee
@@ -12,7 +17,6 @@
         @movieSelected="movieSelected"
       />
     </div>
-    <Nominee v-else :movieID="movie.imdbID" />
   </div>
 </template>
 
@@ -43,6 +47,11 @@ export default class MovieSelection extends Vue {
       (movie: any) => movie.imdbID === movieID
     );
   }
+
+  deleteNominee() {
+    this.movie = null;
+    this.closeSearch();
+  }
 }
 </script>
 
@@ -53,7 +62,6 @@ export default class MovieSelection extends Vue {
   margin: 0px 15px 15px 0px;
   border-radius: 10px;
   position: relative;
-  cursor: pointer;
   transition: all 120ms ease;
 
   &:hover {
@@ -70,6 +78,7 @@ export default class MovieSelection extends Vue {
     justify-content: center;
     align-items: center;
     position: relative;
+    cursor: pointer;
   }
 }
 </style>

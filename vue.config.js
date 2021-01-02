@@ -7,5 +7,4 @@ module.exports = {
         port: '8080',
         host: 'localhost'
     },
-    publicPath: '/shopify-challenge-2021/'
 };
