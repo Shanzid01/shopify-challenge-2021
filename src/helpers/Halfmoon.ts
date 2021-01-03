@@ -121,4 +121,12 @@ export default class Halfmoon {
     }
     return cookie === "light-mode" ? false : true;
   }
+
+  /** Set dark mode as default */
+  public static setDarkModeDefault(): void {
+    const cookie = Vue.$cookies.get("halfmoon_preferredMode");
+    if (!cookie) {
+      Halfmoon.toggleDarkMode();
+    }
+  }
 }

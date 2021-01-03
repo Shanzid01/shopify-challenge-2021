@@ -59,6 +59,7 @@ export default class App extends Vue {
   mounted() {
     Halfmoon.init();
     this.animateIntoView();
+    Halfmoon.setDarkModeDefault();
   }
 
   animateIntoView() {
