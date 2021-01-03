@@ -7,4 +7,5 @@ module.exports = {
         port: '8080',
         host: 'localhost'
     },
+    publicPath: process.env.NODE_ENV === 'production' ? '/shopify-challenge-2021/' : '/'
 };
