@@ -17,17 +17,25 @@
           placeholder="Search a movie"
           v-model="searchQuery"
           :disabled="this.loading"
+          autocomplete="off"
         />
         <button
           class="btn btn-primary btn-lg"
           type="submit"
           :disabled="this.loading"
         >
-          <i class="fa fa-search" />
+          <i :class="`fa ${loading ? 'fa-spinner spin' : 'fa-search'}`" />
         </button>
       </form>
       <div class="search-results">
+        <img
+          src="@/assets/search-message.svg"
+          class="search-message"
+          v-if="!searchResults || searchResults.length === 0"
+          alt="Search results will appear here"
+        />
         <SearchItem
+          v-else
           v-for="movie in searchResults"
           :key="movie.imdbID"
           :movieName="movie.Title"
@@ -217,11 +225,30 @@ export default class SearchModal extends Vue {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    .search-message {
+      opacity: 0.3;
+      margin-top: 10vh;
+      max-width: 200px;
+    }
   }
 }
 
 button {
   justify-content: center;
   align-items: center;
+}
+
+.spin {
+  animation: rotation 1.5s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 </style>

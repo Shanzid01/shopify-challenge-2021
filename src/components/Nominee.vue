@@ -1,5 +1,5 @@
 <template>
-  <div class="nominee">
+  <div class="nominee" :id="`nomiee-${movieID}`">
     <img :src="posterURL" :alt="`poster-${nomineeTitle}`" class="poster" />
     <div class="nominee-info">
       <div class="backdrop" />
@@ -10,6 +10,7 @@
       @click="deleteNominee"
       class="btn delete-button btn-sm"
       type="button"
+      title="Remove nomination"
     >
       <i class="fa fa-times" />
     </button>
@@ -18,6 +19,7 @@
 
 <script lang="ts">
 import NomineeModule from "@/store/modules/NomineeModule";
+import gsap from "gsap";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
@@ -49,13 +51,23 @@ export default class Nominee extends Vue {
     return this.nominee["Year"];
   }
 
-  deleteNominee() {
+  async deleteNominee() {
+    await gsap.to(`#nomiee-${this.movieID}`, 0.12, {
+      opacity: 0,
+    });
+
     const newNominees = NomineeModule.nominees.filter(
       (nominee) => nominee.imdbID !== this.movieID
     );
     NomineeModule.updateNomineeList(newNominees);
 
     this.$emit("deleteNominee");
+  }
+
+  mounted() {
+    gsap.from(`#nomiee-${this.movieID}`, 0.5, {
+      opacity: 0,
+    });
   }
 }
 </script>
@@ -97,7 +109,7 @@ export default class Nominee extends Vue {
     right: 0px;
     width: 100%;
     min-height: 50px;
-    padding: 20px 20px 10px 20px;
+    padding: 25px 20px 15px 20px;
     color: white;
 
     .backdrop {

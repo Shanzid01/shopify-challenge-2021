@@ -28,7 +28,7 @@ class NomineeModule extends VuexModule {
     }
 
     const newNominees = [...this.nominees];
-    if (!newNominees.includes((m: any) => m.imdbID === nominee.imdbID)) {
+    if (!newNominees.find((m: any) => m.imdbID === nominee.imdbID)) {
       newNominees.push(nominee);
     }
     this.context.commit("setNominees", newNominees);

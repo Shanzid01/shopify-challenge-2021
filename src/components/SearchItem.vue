@@ -18,7 +18,7 @@
         <span class="text-muted font-size-16 d-block">
           {{ movieYear }}
         </span>
-        <div class="text-right">
+        <div class="text-right ml-auto">
           <button class="btn" :disabled="isNominee" @click="selectNominee">
             {{ isNominee ? "Nominated" : "Nominate" }}
           </button>
