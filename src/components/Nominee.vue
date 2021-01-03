@@ -8,7 +8,7 @@
     </div>
     <button
       @click="deleteNominee"
-      class="btn delete-button btn-sm"
+      class="btn delete-button btn-sm alt-dm"
       type="button"
       title="Remove nomination"
     >

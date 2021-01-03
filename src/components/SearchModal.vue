@@ -91,7 +91,7 @@ export default class SearchModal extends Vue {
           height: parentNodeDimension?.height,
           x: parentNodeDimension?.x,
           y: parentNodeDimension?.y,
-          backgroundColor: "#f0f0f0",
+          backgroundColor: !Halfmoon.isDarkModeOn() ? "#f0f0f0" : "#25282c",
           scale: 0,
         },
         {
@@ -101,7 +101,7 @@ export default class SearchModal extends Vue {
           x: 0,
           y: 0,
           duration: this.animDuration,
-          backgroundColor: "#fff",
+          backgroundColor: !Halfmoon.isDarkModeOn() ? "#fff" : "#25282c",
           scale: 1,
         }
       )
@@ -123,7 +123,7 @@ export default class SearchModal extends Vue {
       height: parentNodeDimension?.height,
       x: parentNodeDimension?.x,
       y: parentNodeDimension?.y,
-      backgroundColor: "#f0f0f0",
+      backgroundColor: !Halfmoon.isDarkModeOn() ? "#f0f0f0" : "#25282c",
       scale: 0.2,
     });
     setTimeout(() => {
@@ -170,7 +170,6 @@ export default class SearchModal extends Vue {
   left: 0px;
   width: 100vw;
   height: 100vh;
-  background: #fff;
   z-index: 100;
   overflow: auto;
   cursor: default;

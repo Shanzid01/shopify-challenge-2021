@@ -78,7 +78,7 @@ export default class SearchItem extends Vue {
 }
 
 .nominee-selected {
-  border: 5px solid #1eda69;
+  border: 5px solid #1eda69 !important;
   border-radius: 8px;
   cursor: not-allowed;
 }

@@ -115,10 +115,10 @@ export default class Halfmoon {
 
   /** Returns true if dark mode is on, false otherwise */
   public static isDarkModeOn(): boolean {
-    const cookie = Vue.$cookies.get("darkModeOn");
+    const cookie = Vue.$cookies.get("halfmoon_preferredMode");
     if (!cookie) {
       return false;
     }
-    return cookie === "no" ? false : true;
+    return cookie === "light-mode" ? false : true;
   }
 }
