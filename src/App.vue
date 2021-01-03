@@ -6,14 +6,29 @@
           👑
           <span class="font-weight-bolder font-size-22">Movie nominations</span>
         </h2>
-        <button
-          type="button"
-          class="btn btn-square btn-primary btn-sm"
-          @click="toggleDarkMode"
-        >
-          <i v-if="isDarkModeOn" class="fa fa-moon-o font-size-16" />
-          <i v-else class="fa fa-sun-o font-size-16" />
-        </button>
+        <div class="nav-actions">
+          <a
+            href="https://github.com/Shanzid01/shopify-challenge-2021"
+            data-toggle="tooltip"
+            data-title="See source code in GitHub"
+            data-placement="bottom"
+            :class="`btn btn-sm mr-5 ${isPhone ? 'btn-square' : ''}`"
+          >
+            <i class="fa fa-github-alt font-size-14" />
+            {{ isPhone ? "" : "GitHub" }}
+          </a>
+          <button
+            type="button"
+            data-toggle="tooltip"
+            data-title="Toggle dark mode"
+            data-placement="bottom"
+            class="btn btn-square btn-primary btn-sm"
+            @click="toggleDarkMode"
+          >
+            <i v-if="isDarkModeOn" class="fa fa-moon-o font-size-16" />
+            <i v-else class="fa fa-sun-o font-size-16" />
+          </button>
+        </div>
       </div>
       <div
         v-if="nominees.length === maxNominees"
@@ -51,6 +66,12 @@ export default class App extends Vue {
 
   isDarkModeOn = Halfmoon.isDarkModeOn();
 
+  windowWidth = window.screen.width;
+
+  get isPhone(): boolean {
+    return this.windowWidth <= 600;
+  }
+
   toggleDarkMode() {
     Halfmoon.toggleDarkMode();
     this.isDarkModeOn = Halfmoon.isDarkModeOn();
@@ -60,6 +81,10 @@ export default class App extends Vue {
     Halfmoon.init();
     this.animateIntoView();
     Halfmoon.setDarkModeDefault();
+
+    window.addEventListener("resize", () => {
+      this.windowWidth = window.innerWidth;
+    });
   }
 
   animateIntoView() {
@@ -93,7 +118,7 @@ export default class App extends Vue {
 .title {
   width: 100%;
 
-  button {
+  .nav-actions {
     float: right;
   }
 }
@@ -117,10 +142,6 @@ export default class App extends Vue {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-  }
-
-  .content-title {
-    text-align: center;
   }
 }
 </style>
