@@ -148,11 +148,7 @@ export default class SearchModal extends Vue {
     const movie = this.searchResults.find(
       (movie: any) => movie.imdbID === movieID
     );
-    const newNomineeList = [...NomineeModule.nominees];
-    if (!newNomineeList.includes((movie: any) => movie.imdbID === movieID)) {
-      newNomineeList.push(movie);
-    }
-    NomineeModule.updateNomineeList(newNomineeList);
+    NomineeModule.addNominee(movie);
     this.$emit("movieSelected", movieID);
     this.closeModal();
   }

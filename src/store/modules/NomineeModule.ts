@@ -20,5 +20,18 @@ class NomineeModule extends VuexModule {
   public updateNomineeList(nominees: any[]) {
     this.context.commit("setNominees", nominees);
   }
+
+  @Action
+  public addNominee(nominee: any) {
+    if (!nominee) {
+      return;
+    }
+
+    const newNominees = [...this.nominees];
+    if (!newNominees.includes((m: any) => m.imdbID === nominee.imdbID)) {
+      newNominees.push(nominee);
+    }
+    this.context.commit("setNominees", newNominees);
+  }
 }
 export default getModule(NomineeModule);

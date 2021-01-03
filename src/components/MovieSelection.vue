@@ -42,15 +42,25 @@ export default class MovieSelection extends Vue {
     this.isSearchOpen = false;
   }
 
+  mounted() {
+    const memory = localStorage.getItem(this.id);
+    if (memory != null) {
+      this.movie = JSON.parse(memory);
+      NomineeModule.addNominee(this.movie);
+    }
+  }
+
   movieSelected(movieID: string) {
     this.movie = NomineeModule.nominees.find(
       (movie: any) => movie.imdbID === movieID
     );
+    localStorage.setItem(this.id, JSON.stringify(this.movie));
   }
 
   deleteNominee() {
     this.movie = null;
     this.closeSearch();
+    localStorage.removeItem(this.id);
   }
 }
 </script>
