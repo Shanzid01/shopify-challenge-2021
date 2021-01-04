@@ -52,8 +52,6 @@
 <script lang="ts">
 import gsap from "gsap";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import omdbService from "@/services/omdbService.ts";
-import Halfmoon from "@/helpers/Halfmoon";
 import SearchModule from "@/store/modules/SearchModule.ts";
 import SearchItem from "@/components/SearchItem.vue";
 import NomineeModule from "@/store/modules/NomineeModule";
@@ -91,7 +89,6 @@ export default class SearchModal extends Vue {
           height: parentNodeDimension?.height,
           x: parentNodeDimension?.x,
           y: parentNodeDimension?.y,
-          backgroundColor: !Halfmoon.isDarkModeOn() ? "#f0f0f0" : "#25282c",
           scale: 0,
         },
         {
@@ -101,7 +98,6 @@ export default class SearchModal extends Vue {
           x: 0,
           y: 0,
           duration: this.animDuration,
-          backgroundColor: !Halfmoon.isDarkModeOn() ? "#fff" : "#25282c",
           scale: 1,
         }
       )
@@ -117,22 +113,22 @@ export default class SearchModal extends Vue {
     }
 
     const parentNodeDimension = this.parentNode.getBoundingClientRect();
-    gsap.to(`#${this.id}`, this.animDuration, {
-      opacity: 0,
-      width: parentNodeDimension?.width,
-      height: parentNodeDimension?.height,
-      x: parentNodeDimension?.x,
-      y: parentNodeDimension?.y,
-      backgroundColor: !Halfmoon.isDarkModeOn() ? "#f0f0f0" : "#25282c",
-      scale: 0.2,
-    });
-    setTimeout(() => {
-      this.$emit("close");
-    }, this.animDuration * 1000);
+    gsap
+      .to(`#${this.id}`, this.animDuration, {
+        opacity: 0,
+        width: parentNodeDimension?.width,
+        height: parentNodeDimension?.height,
+        x: parentNodeDimension?.x,
+        y: parentNodeDimension?.y,
+        scale: 0.5,
+      })
+      .then(() => {
+        this.$emit("close");
+      });
   }
 
   registerEscape() {
-    document.onkeydown = (evt) => {
+    document.onkeydown = (evt: any) => {
       evt = evt || window.event;
       let isEscape = false;
       if ("key" in evt) {
@@ -164,6 +160,10 @@ export default class SearchModal extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.dark-mode .search-window-container {
+  background: #191c20;
+}
+
 .search-window-container {
   position: fixed;
   top: 0px;
@@ -173,6 +173,7 @@ export default class SearchModal extends Vue {
   z-index: 100;
   overflow: auto;
   cursor: default;
+  background: #fff;
 
   .action-buttons {
     width: 100%;

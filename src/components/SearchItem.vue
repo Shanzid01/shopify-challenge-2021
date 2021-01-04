@@ -71,8 +71,8 @@ export default class SearchItem extends Vue {
   cursor: pointer;
 
   .poster-image {
-    width: 300px;
-    height: 400px;
+    width: 100%;
+    max-height: 400px;
     object-fit: cover;
   }
 }

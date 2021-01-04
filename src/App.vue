@@ -82,9 +82,7 @@ export default class App extends Vue {
     this.animateIntoView();
     Halfmoon.setDarkModeDefault();
 
-    window.addEventListener("resize", () => {
-      this.windowWidth = window.innerWidth;
-    });
+    window.onresize = () => (this.windowWidth = window.innerWidth);
   }
 
   animateIntoView() {

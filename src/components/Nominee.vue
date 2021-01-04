@@ -10,7 +10,9 @@
       @click="deleteNominee"
       class="btn delete-button btn-sm alt-dm"
       type="button"
-      title="Remove nomination"
+      data-toggle="tooltip"
+      data-title="Remove nominee"
+      data-placement="bottom"
     >
       <i class="fa fa-times" />
     </button>
