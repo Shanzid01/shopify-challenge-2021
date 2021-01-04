@@ -43,7 +43,7 @@ Create a webpage that can search OMDB for movies, and allow the user to save the
 9. Search results are cached to prevent repeated calls to API with the same query.
 10. Responsive design to allow use on mobile devices.
 
-<img src="https://shanzid01.github.io/shopify-challenge-2021/demo.gif" width="100%" />
+<img src="/public/demo.gif"/>
 
 ## Using code locally
 Install:
