@@ -3,7 +3,7 @@
     <div class="content">
       <div class="title">
         <h2 class="content-title d-inline-block">
-          👑
+          🎬
           <span class="font-weight-bolder font-size-22">Movie nominations</span>
         </h2>
         <div class="nav-actions">
