@@ -1,5 +1,6 @@
 
 # Shopify front-end internship challenge 2021
+
 <img src="https://shanzid01.github.io/shopify-challenge-2021/ograph.svg" width="100%" />
 <sup> <b><i>PS. The idea was to create an icon which clearly shows that the application is a part of the Shopify brand. Please don't sue me 🙇‍♂️.</i></b> </sup>
 
