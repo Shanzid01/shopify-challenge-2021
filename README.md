@@ -28,15 +28,14 @@ Create a webpage that can search OMDB for movies, and allow the user to save the
 2. Landing page: 
     * Allow user to see the movie nominations as the primary objective of the application.
     * Convey only 5 nominations are required using empty nomination cards.
-    * Searching is hidden on this screen since user's intent is to see the nominations.
 3. Searching: 
     * Searching (secondary objective) for movies to nominate is possible by clicking on an empty nomination card.
-    * Full-screen modal allows user to search and see results (movie titles, year, and poster) when user intends to search. Nominations are hidden (behind modal) when on search screen since user's intent is to search. Using full-screen allows search results to be comprehensive, allowing user to easily identify movies.
+    * Full-screen modal allows user to search and see results (movie titles, year, and poster) when user intends to search. Using full-screen allows search results to be comprehensive, allowing user to easily identify movies.
     * Choosing a nominee from the results automatically closes the search modal and shows the nomination on the main screen.
     * Cross (x) button on modal allows user to dismiss the search modal. Also possible with Esc key (intuitive for many users).
-4. Removing nomination is possible by clicking on a cross (x) icon at the top-right of the nomination card in the main screen. A help tooltip is displayed on hover to ensure user understands the function of the button.
+4. Removing nomination is possible by clicking on a cross (x) icon at the top-right of the nomination card in the main screen.
 ### Extras
-5. App's logo should represent relation to the Shopify brand.
+5. App's logo and colors should represent relation to the Shopify brand.
 6. Limited and meaningful animations to represent flow of information. No animation is longer than 120 milliseconds.
 7. User's nominations are saved locally, i.e. reloading page does not empty the list.
 8. Dark mode available (duh!). Button to switch between dark/light modes prominently displayed on the main page.
