@@ -4,7 +4,7 @@
       <div class="title">
         <h2 class="content-title d-inline-block">
           🎬
-          <span class="font-weight-bolder font-size-22">Movie nominations</span>
+          <span class="font-weight-bolder font-size-24">Movie nominations</span>
         </h2>
         <div class="nav-actions">
           <a
@@ -12,7 +12,7 @@
             data-toggle="tooltip"
             data-title="See source code in GitHub"
             data-placement="bottom"
-            :class="`btn btn-sm mr-5 ${isPhone ? 'btn-square' : ''}`"
+            :class="`btn mr-5 ${isPhone ? 'btn-square btn-sm' : ''}`"
           >
             <i class="fa fa-github-alt font-size-14" />
             {{ isPhone ? "" : "GitHub" }}
@@ -20,9 +20,9 @@
           <button
             type="button"
             data-toggle="tooltip"
-            data-title="Toggle dark mode"
+            :data-title="`Toggle ${isDarkModeOn ? 'light' : 'dark'} mode`"
             data-placement="bottom"
-            class="btn btn-square btn-primary btn-sm"
+            :class="`btn btn-square btn-primary ${isPhone ? 'btn-sm' : ''}`"
             @click="toggleDarkMode"
           >
             <i v-if="isDarkModeOn" class="fa fa-moon-o font-size-16" />
@@ -132,6 +132,22 @@ export default class App extends Vue {
 
 * {
   -webkit-tap-highlight-color: transparent;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+:root {
+  /* Change primary color from blue to indigo */
+
+  --primary-color: #008060;
+  --primary-color-light: #004c3f;
+  --primary-color-very-light: #95bf473a;
+  --dm-alert-primary-bg-color: transparent;
+  --dm-alert-primary-border-color: #004c3f;
+  --lm-button-primary-outline-color-focus: #95bf47;
+  --primary-box-shadow-color-darker: #00806054;
+  --dm-input-box-shadow-focus: #00806054;
+  --dm-button-alt-bg-color: #3b3e42;
+  --dm-button-alt-bg-color-hover: #2e3033;
 }
 
 @media only screen and (max-width: 600px) {

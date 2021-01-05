@@ -6,7 +6,7 @@
       @deleteNominee="deleteNominee"
     />
     <div v-else :id="id" class="empty-selection" @click="openSearch">
-      <span class="text-muted font-weight-bold font-size-14">
+      <span class="text-muted font-weight-semi-bold font-size-14">
         <i class="fa fa-plus text-muted" />
         Choose nominee
       </span>
@@ -83,7 +83,9 @@ export default class MovieSelection extends Vue {
   .empty-selection {
     height: 100%;
     width: 100%;
-    background: rgba(129, 125, 125, 0.07);
+    background: rgba(129, 125, 125, 0.08);
+    border: 1px solid rgba(129, 125, 125, 0.35);
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
